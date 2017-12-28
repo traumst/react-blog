@@ -1,3 +1,46 @@
-form a {
-  margin-left: 5px;
+.container {
+    width: 900px;
+}
+
+.text-xs-right {
+    display: inline;
+    margin-right: 20px;
+}
+
+.list-group-item {
+  max-width: 400px;
+  margin: 18px;
+}
+
+.icon img {
+  width: 75px;
+  height: 75px;
+  margin: 0 10px 10px 0;
+    position: relative;
+}
+
+.mark-delete {
+    display: none;
+}
+
+.mark-delete + img {
+    height: 75px;
+    width: 75px;
+    border-radius: 10px;
+    z-index: 10;
+    content: "";
+    display: inline-block;
+    font-size: 12px;
+    line-height: 16px;
+    margin: -2px 6px 0 0;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+}
+
+.mark-delete:checked + img{
+    height: 75px;
+    width: 75px;
+    border-radius: 10px;
+    background: url('http://www.uswebcompany.com/plugins/gravityforms/wp-content/uploads/2016/01/checkmark.png') 0 0 no-repeat;
 }

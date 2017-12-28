@@ -8,21 +8,26 @@ class PostsIndex extends Component {
   componentWillMount() {
     this.props.fetchPosts();
   }
-
+  
   renderPosts() {
     return this.props.posts.map((post) => {
       return (
         <li className="list-group-item" key={post.id}>
+          <span className="float-right">{post.categories}</span>
+          <div className="icon float-left">
+            <input type="checkbox" className="mark-delete" id={post.id}/>
+            <img src="./fourth.png"/>
+          </div>
           <Link to={"posts/" + post.id}>
-            <span className="float-right">{post.categories}</span>
-            <strong>{post.title}</strong>
+            <strong>{post.title}</strong><br/>
           </Link>
+          <p className='post-content'>{post.content}</p>
         </li>
       );
     });
   }
-
-  render () {
+  
+  render() {
     return (
       <div>
         <div className="text-xs-right">
@@ -30,9 +35,14 @@ class PostsIndex extends Component {
             Add a Post
           </Link>
         </div>
+        <div className="text-xs-right">
+          <Link to="/posts/delete" className="btn btn-primary">
+            Delete Posts
+          </Link>
+        </div>
         <h3>Posts</h3>
         <ul className="list-group">
-          {this.renderPosts()}
+            {this.renderPosts()}
         </ul>
       </div>
     );
@@ -40,18 +50,7 @@ class PostsIndex extends Component {
 }
 
 function mapStateToProps(state) {
-  return { posts: state.posts.all }
+  return {posts: state.posts.all}
 }
 
-// Original version
-// function mapDispatchToProps(dispath) {
-//   return bindActionCreators({ fetchPosts }, dispath);
-// }
-
-//export default connect(null, mapDispatchToProps)(PostsIndex);
-
-// First refactor
-//export default connect(null, { fetchPosts: fetchPosts })(PostsIndex);
-
-// Second refactor: using ES6 sintax
 export default connect(mapStateToProps, { fetchPosts })(PostsIndex);

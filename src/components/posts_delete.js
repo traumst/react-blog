@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import { createPost } from '../actions/index';
+import { deletePost } from '../actions/index';
 import { Link } from 'react-router';
 
 const FIELDS = {
@@ -22,11 +22,11 @@ const FIELDS = {
   }
 };
 
-class PostsNew extends Component {
+class PostsDelete extends Component {
   static contextTypes = {
     router: PropTypes.object
   }
-
+  
   onSubmit(props) {
     this.props.createPost(props)
       .then(() => {
@@ -36,29 +36,29 @@ class PostsNew extends Component {
         this.context.router.push('/');
       });
   }
-
+  
   renderField(fieldConfig, field) {
     const fieldHelper = this.props.fields[field];
-
+    
     return (
       <div
         className={`form-group ${fieldHelper.touched && fieldHelper.invalid ? 'has-danger' : ''}`}
         key={fieldConfig.label}>
-          <label>{fieldConfig.label}</label>
-          <fieldConfig.type type="text" className="form-control" {...fieldHelper} />
-          <div className="form-control-feedback">
-            {fieldHelper.touched ? fieldHelper.error : ''}
-          </div>
+        <label>{fieldConfig.label}</label>
+        <fieldConfig.type type="text" className="form-control" {...fieldHelper} />
+        <div className="form-control-feedback">
+          {fieldHelper.touched ? fieldHelper.error : ''}
+        </div>
       </div>
     );
   }
-
+  
   render() {
     const { handleSubmit } = this.props;
     //const { fields: { title, categories, content }, handleSubmit } = this.props;
     // const handleSubmit = this.props.handleSubmit;
     // const title = this.props.fields.title; ...
-
+    
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <h3>Create a New Post</h3>
@@ -72,7 +72,7 @@ class PostsNew extends Component {
 
 function validate(values) {
   const errors = {};
-
+  
   _.each(FIELDS, (element, field) => {
     if(!values[field]) {
       errors[field] = element.validationError;
@@ -86,7 +86,7 @@ function validate(values) {
 
 // reduxForm is like connect function in react-redux library
 export default reduxForm({
-  form: 'PostsNewForm',
+  form: 'PostsDeleteForm',
   fields: _.keys(FIELDS),
   validate
-}, null, { createPost })(PostsNew);
+}, null, { createPost })(PostsDelete);
